@@ -1,0 +1,234 @@
+======================================================================
+TEXT CLASSIFICATION API - REAL DATA TESTING
+======================================================================
+✓ Server is running
+
+
+======================================================================
+Test: E-commerce: Shoes delivery with ZIP and time
+======================================================================
+Input:  Nike shoes to 10001 tomorrow evening
+Output: {
+  "zip": "10001",
+  "brand": "Nike",
+  "category": "shoes",
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: Electronics: Phone with famous ZIP code
+======================================================================
+Input:  Send Samsung phone to 90210 this afternoon
+Output: {
+  "zip": "90210",
+  "brand": "Samsung",
+  "category": "electronics",
+  "time_pref": "this afternoon"
+}
+
+======================================================================
+Test: Urgent delivery with explicit ZIP mention
+======================================================================
+Input:  Order Adidas sneakers to ZIP code 12345 ASAP
+Output: {
+  "zip": "12345",
+  "brand": "Adidas",
+  "category": "shoes",
+  "time_pref": "asap"
+}
+
+======================================================================
+Test: Tech product with specific timeframe
+======================================================================
+Input:  I need Apple laptop delivered to 94102 next week
+Output: {
+  "zip": "94102",
+  "brand": "Apple",
+  "category": "electronics",
+  "time_pref": "next week"
+}
+
+======================================================================
+Test: Food delivery with specific time
+======================================================================
+Input:  Starbucks coffee to 60601 today at 3:30 PM
+Output: {
+  "zip": "60601",
+  "brand": "Starbucks",
+  "category": "food",
+  "time_pref": "today"
+}
+
+======================================================================
+Test: Food delivery with evening preference
+======================================================================
+Input:  Pizza from Domino's to 78701 tonight
+Output: {
+  "zip": "78701",
+  "brand": "Pizza",
+  "category": "food",
+  "time_pref": "tonight"
+}
+
+======================================================================
+Test: Fast food with time duration
+======================================================================
+Input:  Need burger delivered to 10002 in 30 minutes
+Output: {
+  "zip": "10002",
+  "brand": "Need",
+  "category": "food",
+  "time_pref": "in 30 minutes"
+}
+
+======================================================================
+Test: Clothing with morning delivery
+======================================================================
+Input:  Zara dress to 33101 tomorrow morning
+Output: {
+  "zip": "33101",
+  "brand": "Zara",
+  "category": "clothing",
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: Luxury brand with weekend delivery
+======================================================================
+Input:  Gucci shirt to 94103 this weekend
+Output: {
+  "zip": "94103",
+  "brand": "Gucci",
+  "category": "clothing",
+  "time_pref": "this weekend"
+}
+
+======================================================================
+Test: Furniture with specific day
+======================================================================
+Input:  IKEA chair to 02101 next Monday
+Output: {
+  "zip": "02101",
+  "brand": "Monday",
+  "category": "furniture",
+  "time_pref": "next monday"
+}
+
+======================================================================
+Test: Furniture with time duration
+======================================================================
+Input:  Sofa delivery to 98101 in 2 days
+Output: {
+  "zip": "98101",
+  "brand": "Sofa",
+  "category": "furniture",
+  "time_pref": "in 2 days"
+}
+
+======================================================================
+Test: Minimal information - all fields empty
+======================================================================
+Input:  Looking for something
+Output: {
+  "zip": null,
+  "brand": "Looking",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Missing time preference
+======================================================================
+Input:  Microsoft Surface Pro tablet 90210
+Output: {
+  "zip": "90210",
+  "brand": "Microsoft",
+  "category": "electronics",
+  "time_pref": null
+}
+
+======================================================================
+Test: Missing brand and category
+======================================================================
+Input:  Delivery to 10001 tomorrow
+Output: {
+  "zip": "10001",
+  "brand": "Delivery",
+  "category": null,
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: Only brand, no location or time
+======================================================================
+Input:  Apple watch
+Output: {
+  "zip": null,
+  "brand": "Apple",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Complex sentence with all information
+======================================================================
+Input:  I want Nike Air Max sneakers delivered to my office at 10001 tomorrow afternoon
+Output: {
+  "zip": "10001",
+  "brand": "Nike",
+  "category": "shoes",
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: Complex request with urgency
+======================================================================
+Input:  Can you ship Sony TV to ZIP 33133 as soon as possible? Need it urgently!
+Output: {
+  "zip": "33133",
+  "brand": "Sony",
+  "category": "electronics",
+  "time_pref": null
+}
+
+======================================================================
+Test: Business context with day-specific delivery
+======================================================================
+Input:  HP laptop for work, address is 02134, need it by Friday
+Output: {
+  "zip": "02134",
+  "brand": "Hp",
+  "category": "electronics",
+  "time_pref": null
+}
+
+======================================================================
+Test: Canadian postal code format
+======================================================================
+Input:  Apple iPhone to M5H 2N2 tomorrow
+Output: {
+  "zip": null,
+  "brand": "Apple",
+  "category": "electronics",
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: UK postcode format
+======================================================================
+Input:  Dell computer to SW1A 1AA next week
+Output: {
+  "zip": null,
+  "brand": "Dell",
+  "category": "electronics",
+  "time_pref": "next week"
+}
+
+======================================================================
+TEST SUMMARY
+======================================================================
+Total tests:  20
+Successful:   20
+Failed:       0
+Success rate: 100.0%
+======================================================================

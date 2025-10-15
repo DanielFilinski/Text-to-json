@@ -1,0 +1,365 @@
+======================================================================
+TEXT CLASSIFICATION API - MAIN VERSION TESTING
+======================================================================
+✓ Server is running
+  Status: healthy
+  OpenAI enabled: False
+
+
+======================================================================
+Test: Basic example with all fields
+======================================================================
+Input:  Nike shoes to 10001 tomorrow evening
+Output: {
+  "zip": "10001",
+  "brand": "Nike",
+  "category": "shoes",
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: Electronics with time preference
+======================================================================
+Input:  Send Samsung phone to 90210 this afternoon
+Output: {
+  "zip": "90210",
+  "brand": "Samsung",
+  "category": "electronics",
+  "time_pref": "afternoon"
+}
+
+======================================================================
+Test: Uppercase brand name
+======================================================================
+Input:  I need ADIDAS sneakers delivered
+Output: {
+  "zip": null,
+  "brand": "Adidas",
+  "category": "shoes",
+  "time_pref": null
+}
+
+======================================================================
+Test: Lowercase brand with product detail
+======================================================================
+Input:  Looking for sony playstation 5
+Output: {
+  "zip": null,
+  "brand": "Sony",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Extended ZIP code format (9 digits)
+======================================================================
+Input:  Ship to 10001-1234 extended ZIP format
+Output: {
+  "zip": "10001-1234",
+  "brand": "Ship",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Canadian postal code
+======================================================================
+Input:  Deliver to M5H 2N2 Canadian address
+Output: {
+  "zip": "M5H 2N2",
+  "brand": "Deliver",
+  "category": "clothing",
+  "time_pref": null
+}
+
+======================================================================
+Test: Multiple time indicators
+======================================================================
+Input:  Need it tomorrow morning before 9:00 AM
+Output: {
+  "zip": null,
+  "brand": "Need",
+  "category": null,
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: Multiple time options
+======================================================================
+Input:  Deliver this afternoon or evening
+Output: {
+  "zip": null,
+  "brand": "Deliver",
+  "category": null,
+  "time_pref": "afternoon"
+}
+
+======================================================================
+Test: Brand + detailed product name
+======================================================================
+Input:  Apple MacBook Pro laptop for development
+Output: {
+  "zip": null,
+  "brand": "Apple",
+  "category": "electronics",
+  "time_pref": null
+}
+
+======================================================================
+Test: Brand + specific product line
+======================================================================
+Input:  Nike Air Jordan basketball sneakers
+Output: {
+  "zip": null,
+  "brand": "Nike",
+  "category": "shoes",
+  "time_pref": null
+}
+
+======================================================================
+Test: Bulk order with business context
+======================================================================
+Input:  Corporate order: 50 Dell laptops to office at 60601
+Output: {
+  "zip": "60601",
+  "brand": "Dell",
+  "category": "electronics",
+  "time_pref": null
+}
+
+======================================================================
+Test: Return scenario
+======================================================================
+Input:  Return Zara dress, shipping to 10002
+Output: {
+  "zip": "10002",
+  "brand": "Zara",
+  "category": "clothing",
+  "time_pref": null
+}
+
+======================================================================
+Test: Ambiguous - Target as store or verb?
+======================================================================
+Input:  Target shoes
+Output: {
+  "zip": null,
+  "brand": "Target",
+  "category": "shoes",
+  "time_pref": null
+}
+
+======================================================================
+Test: Brand + location visit (not delivery)
+======================================================================
+Input:  Apple store visit
+Output: {
+  "zip": null,
+  "brand": "Apple",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Only category, no other info
+======================================================================
+Input:  Just looking for shoes
+Output: {
+  "zip": null,
+  "brand": "Just",
+  "category": "shoes",
+  "time_pref": null
+}
+
+======================================================================
+Test: Only ZIP code
+======================================================================
+Input:  Deliver to 10001
+Output: {
+  "zip": "10001",
+  "brand": "Deliver",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Only brand and time
+======================================================================
+Input:  Nike tomorrow
+Output: {
+  "zip": null,
+  "brand": "Nike",
+  "category": null,
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: Special characters
+======================================================================
+Input:  Nike shoes @ 10001 - tomorrow!!!
+Output: {
+  "zip": "10001",
+  "brand": "Nike",
+  "category": "shoes",
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: With emojis
+======================================================================
+Input:  📦 Samsung phone -> 90210 ASAP 🚀
+Output: {
+  "zip": "90210",
+  "brand": "Samsung",
+  "category": "electronics",
+  "time_pref": "asap"
+}
+
+======================================================================
+Test: Polite, long form request
+======================================================================
+Input:  Can you please deliver Nike shoes to my apartment at 10001 tomorrow evening?
+Output: {
+  "zip": "10001",
+  "brand": "Nike",
+  "category": "shoes",
+  "time_pref": "tomorrow"
+}
+
+======================================================================
+Test: Conversational style
+======================================================================
+Input:  I'm in urgent need of a Samsung phone, address is 90210, need it this afternoon
+Output: {
+  "zip": "90210",
+  "brand": "Samsung",
+  "category": "clothing",
+  "time_pref": "afternoon"
+}
+
+======================================================================
+Test: Multiple brands (should pick first)
+======================================================================
+Input:  Nike shoes and Adidas shirt to 10001
+Output: {
+  "zip": "10001",
+  "brand": "Nike",
+  "category": "shoes",
+  "time_pref": null
+}
+
+======================================================================
+Test: Multiple categories
+======================================================================
+Input:  Need laptop and phone delivered
+Output: {
+  "zip": null,
+  "brand": "Need",
+  "category": "electronics",
+  "time_pref": null
+}
+
+======================================================================
+Test: Price included in text
+======================================================================
+Input:  $200 Nike shoes to 10001
+Output: {
+  "zip": "10001",
+  "brand": "Nike",
+  "category": "shoes",
+  "time_pref": null
+}
+
+======================================================================
+Test: Time as duration
+======================================================================
+Input:  Deliver in 2 hours to 10001
+Output: {
+  "zip": "10001",
+  "brand": "Deliver",
+  "category": null,
+  "time_pref": "in 2 hours"
+}
+
+======================================================================
+Test: Specific hour duration
+======================================================================
+Input:  Need it within 24 hours
+Output: {
+  "zip": null,
+  "brand": "Need",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Specific day of week
+======================================================================
+Input:  Deliver next Monday morning
+Output: {
+  "zip": null,
+  "brand": "Deliver",
+  "category": null,
+  "time_pref": "morning"
+}
+
+======================================================================
+Test: Holiday reference
+======================================================================
+Input:  Need it before Christmas
+Output: {
+  "zip": null,
+  "brand": "Need",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: No relevant information
+======================================================================
+Input:  Hello
+Output: {
+  "zip": null,
+  "brand": "Hello",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Question, no specific request
+======================================================================
+Input:  What can you deliver?
+Output: {
+  "zip": null,
+  "brand": "What",
+  "category": null,
+  "time_pref": null
+}
+
+======================================================================
+Test: Empty string
+======================================================================
+Input:  
+Error: 422 Unprocessable Content
+
+======================================================================
+TEST SUMMARY
+======================================================================
+Total tests:  31
+Successful:   31
+Failed:       0
+Success rate: 100.0%
+======================================================================
+
+======================================================================
+TESTING ROOT ENDPOINT
+======================================================================
+{
+  "status": "ok",
+  "message": "Text Classification API is running",
+  "endpoints": {
+    "classify": "/classify",
+    "docs": "/docs",
+    "openapi": "/openapi.json"
+  }
+}
