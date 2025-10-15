@@ -39,7 +39,7 @@ pip install -r requirements.txt
 
 4. **Configure environment** (optional):
 ```bash
-cp .env.example .env
+cp env.example .env
 # Edit .env and add your OpenAI API key
 ```
 
@@ -58,6 +58,23 @@ The API will be available at:
 - Alternative docs: http://localhost:8000/redoc
 
 ### API Endpoints
+
+#### `GET /`
+
+Root endpoint with API information.
+
+**Response:**
+```json
+{
+  "status": "ok",
+  "message": "Text Classification API is running",
+  "endpoints": {
+    "classify": "/classify",
+    "docs": "/docs",
+    "openapi": "/openapi.json"
+  }
+}
+```
 
 #### `POST /classify`
 
@@ -161,9 +178,12 @@ fetch('http://localhost:8000/classify', {
 │   └── config.py        # Configuration management
 ├── main.py              # Application entry point
 ├── requirements.txt     # Python dependencies
-├── .env.example         # Environment variables template
-├── .gitignore          # Git ignore rules
-└── README.md           # This file
+├── env.example          # Environment variables template
+├── .gitignore           # Git ignore rules
+├── Dockerfile           # Docker container configuration
+├── docker-compose.yml   # Docker Compose configuration
+├── test_examples.py     # API test examples
+└── README.md            # This file
 ```
 
 ## Configuration
@@ -187,7 +207,9 @@ Or use the interactive API documentation at http://localhost:8000/docs to test e
 
 ## Production Deployment
 
-For production deployment:
+### Using Gunicorn
+
+For production deployment with Gunicorn:
 
 ```bash
 # Install production server
@@ -197,15 +219,35 @@ pip install gunicorn
 gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
 
-For containerized deployment:
+### Using Docker
+
+Build and run with Docker:
+
 ```bash
-# Create a Dockerfile
-FROM python:3.11-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Build the image
+docker build -t text-classifier .
+
+# Run the container
+docker run -p 8000:8000 -e OPENAI_API_KEY=your_key text-classifier
+```
+
+### Using Docker Compose
+
+The easiest way to run the application with Docker:
+
+```bash
+# Create .env file with your configuration
+cp env.example .env
+# Edit .env and add your OPENAI_API_KEY
+
+# Start the service
+docker-compose up
+
+# Or run in detached mode
+docker-compose up -d
+
+# Stop the service
+docker-compose down
 ```
 
 ## Notes
